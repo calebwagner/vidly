@@ -1,5 +1,18 @@
 import * as genresAPI from "./fakeGenreService";
 
+/**
+ * movies object properties:
+ * {
+ *  _id: string,
+ *  title: string,
+ *  genre: object,
+ *  numberInStock: int,
+ *  dailyRentalRate: int,
+ *  publishDate: string,
+ *  liked: boolean
+ * }
+ */
+
 const movies = [
   {
     _id: "5b21ca3eeb7f6fbccd471815",
@@ -69,30 +82,46 @@ const movies = [
 ];
 
 export function getMovies() {
+  // get movies array && exit function
   return movies;
 }
 
 export function getMovie(id) {
+  // pass in movie id to find specific movie && return function
   return movies.find(m => m._id === id);
 }
 
 export function saveMovie(movie) {
+  // find movie id && IF variable is not defined (or has a falsey value) ...
+  // THEN set it to an empty object.
   let movieInDb = movies.find(m => m._id === movie._id) || {};
+  // find name of movie id found
   movieInDb.name = movie.name;
+  // find genre id with the found movie id
   movieInDb.genre = genresAPI.genres.find(g => g._id === movie.genreId);
+  // find number in stock with found movie id
   movieInDb.numberInStock = movie.numberInStock;
+  // find daily rental rate with found movie rate
   movieInDb.dailyRentalRate = movie.dailyRentalRate;
 
+  // if not movie id ...
   if (!movieInDb._id) {
+    // set id to current date ...
     movieInDb._id = Date.now();
+    // push to movies array
     movies.push(movieInDb);
   }
 
+  // exit function
   return movieInDb;
 }
 
 export function deleteMovie(id) {
+  // find movie id ...
   let movieInDb = movies.find(m => m._id === id);
+  // remove that movie object with that id using splice with the indexOf method ...
+  // .splice(start, deleteCount) removes 1 element with that index
   movies.splice(movies.indexOf(movieInDb), 1);
+  // exit function
   return movieInDb;
 }
