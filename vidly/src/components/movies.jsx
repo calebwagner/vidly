@@ -9,21 +9,29 @@ import _ from "lodash";
 
 class Movies extends Component {
   state = {
-    movies: [],
-    genres: [],
-    currentPage: 1,
-    pageSize: 4,
-    sortColumn: {path: "title", order: "asc" }
+    movies: getMovies(),
+    pageSize: 4
    };
 
    componentDidMount() {
     const genres = [{ _id: "", name: "All Genres" }, ...getGenres()];
-
     this.setState({ movies: getMovies(), genres });
+   };
+
+   handleDelete = movie => {
+    const movies = this.state.movies.filter(m => m._id !== movie._id);
+    this.setState({ movies });
+   };
+
+   handlePageChange = page => {
+
    }
 
+
   render() {
-    return ();
+    const {length: count} = this.state.movies;
+
+    <Pagination itemsCount={count} pageSize={this.state.pageSize} onPageChange={this.handlePageChange} />
   }
 }
 
