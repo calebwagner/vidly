@@ -1,10 +1,10 @@
 import React, { Component } from "react";
-import MoviesTable from "./moviesTable";
-import ListGroup from "./common/listGroup";
+// import MoviesTable from "./moviesTable";
+// import ListGroup from "./common/listGroup";
 import Pagination from "./common/pagination";
 import { getMovies } from "../services/fakeMovieService";
 import { getGenres } from "../services/fakeGenreService";
-import { paginate } from "../utils/paginate";
+// import { paginate } from "../utils/paginate";
 import _ from "lodash";
 
 class Movies extends Component {
@@ -23,15 +23,18 @@ class Movies extends Component {
     this.setState({ movies });
    };
 
-   handlePageChange = page => {
-
+  handlePageChange = page => {
+     console.log(page)
    }
 
 
   render() {
-    const {length: count} = this.state.movies;
+    const { length: count } = this.state.movies;
 
-    <Pagination itemsCount={count} pageSize={this.state.pageSize} onPageChange={this.handlePageChange} />
+    return (
+
+      <Pagination itemsCount={count} pageSize={this.state.pageSize} onPageChange={this.handlePageChange} />
+    )
   }
 }
 
